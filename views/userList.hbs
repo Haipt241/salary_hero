@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* New styles added below */
+        .update-button-container {
+            text-align: center; /* Center the button horizontally */
+            margin-top: 20px; /* Add some space between the table and the button */
+        }
+        .update-button {
+            padding: 10px 20px; /* Increase button padding for a larger click area */
+            cursor: pointer; /* Change cursor to pointer when hovering over the button */
+        }
+    </style>
+</head>
+<body>
+<h1>Users List</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Balance</th>
+        <th>Actions</th>
+    </tr>
+    {{#each users}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.balance}}</td>
+            <td><button onclick="handleWithdraw('{{this._id}}')">Withdraw</button></td>
+        </tr>
+    {{/each}}
+</table>
+<div class="update-button-container">
+    <button onclick="updateBalancesNow()" class="update-button">Update Balances Now</button>
+</div>
+<h2>Balance History</h2>
+{{#each users}}
+    <h3>{{this.name}}</h3>
+    <table>
+        <tr>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date</th>
+        </tr>
+        {{#each this.balanceHistories}}
+            <tr>
+                <td>{{this.amount}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.date}}</td>
+            </tr>
+        {{/each}}
+    </table>
+{{/each}}
+<script src="/js/withdraw.js"></script>
+</body>
+</html>
